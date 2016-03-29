@@ -11,7 +11,7 @@ const initialState = [
 
 
 
-export default purify({
+export const { actions, reducer } = purify({
 
   addTodo(state, action, text) {
     return [
