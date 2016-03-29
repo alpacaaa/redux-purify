@@ -25,7 +25,7 @@ const actionReducerPair = (actionType, input) => {
 
 
 
-export default (pairs) => {
+export default (pairs, initialState) => {
 
   if (typeof pairs !== 'object') {
     throw new Error('redux-purify only accepts objects as argument');
@@ -62,6 +62,10 @@ export default (pairs) => {
 
       if (reducer) {
         return reducer(state, action, ...extraArgs);
+      }
+
+      if (typeof state === 'undefined') {
+        return initialState;
       }
 
       return state;

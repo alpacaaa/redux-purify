@@ -22,8 +22,17 @@ describe('redux-purify', () => {
     expect(reducer({ a: 2 })).to.deep.equal({ a: 2 });
   });
 
+  it('sets the initial state correctly', () => {
+    const initialState = { some: 'thing' };
+    const { actions, reducer } = purify({}, initialState);
 
-  it('works', () => {
+    expect(actions).to.be.an('object').and.be.empty;
+    expect(reducer()).to.deep.equal(initialState);
+    expect(reducer({ a: 2 })).to.deep.equal({ a: 2 });
+  });
+
+
+  it('works with terribly verbose syntax', () => {
 
     const { actions, reducer } = purify({
       someAction: {
