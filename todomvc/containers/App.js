@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Header from '../components/Header'
 import MainSection from '../components/MainSection'
-import { actions as TodoActions } from '../purfied'
+import { actions as TodoActions } from '../purified'
 
 class App extends Component {
   render() {
