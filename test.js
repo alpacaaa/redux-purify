@@ -34,7 +34,7 @@ describe('redux-purify', () => {
 
   it('works with terribly verbose syntax', () => {
 
-    const { actions, reducer } = purify({
+    const { actions, reducer, constants } = purify({
       someAction: {
         actionCreator: (a, b) => ({
           sum: a + b,
@@ -62,12 +62,14 @@ describe('redux-purify', () => {
     expect(newState).to.have.property('total').and.equal(5);
 
     expect(reducer({ a: 2 })).to.deep.equal({ a: 2 });
+
+    expect(constants).to.have.property('someAction');
   });
 
 
 
   it('works with shorthand syntax', () => {
-    const { actions, reducer } = purify({
+    const { actions, reducer, constants } = purify({
       // you should strive to put your logic into reducers whenever possible
       // https://github.com/gaearon/redux-thunk/issues/7#issuecomment-129235274
       someAction: (state, action, a, b) => {
@@ -91,12 +93,14 @@ describe('redux-purify', () => {
     expect(newState).to.have.property('total').and.equal(5);
 
     expect(reducer({ a: 2 })).to.deep.equal({ a: 2 });
+
+    expect(constants).to.have.property('someAction');
   });
 
 
 
   it('works with multiple actions/reducers, despite their definition', () => {
-    const { actions, reducer } = purify({
+    const { actions, reducer, constants } = purify({
       someAction: (state, action, a, b) => {
         return {
           ...state,
@@ -132,5 +136,8 @@ describe('redux-purify', () => {
     testReducer(reducer, difference, { a: 2 }, { a: 2, total: 3 });
 
     expect(reducer({ a: 2 })).to.deep.equal({ a: 2 });
+
+    expect(constants).to.have.property('someAction');
+    expect(constants).to.have.property('anotherAction');
   });
 })
